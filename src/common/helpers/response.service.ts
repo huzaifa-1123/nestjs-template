@@ -14,7 +14,7 @@ export class Response {
     data: T | null = null,
     meta: K | null = null,
     msg: string = 'Request successful',
-    code: number = HttpStatus.OK
+    code: number = HttpStatus.OK,
   ): IResponse<T, K> {
     return {
       success: true,
@@ -28,7 +28,7 @@ export class Response {
     data: T | null = null,
     meta: K | null = null,
     msg: string = 'Request Failed',
-    code: number = HttpStatus.BAD_REQUEST
+    code: number = HttpStatus.BAD_REQUEST,
   ): IResponse<T, K> {
     return {
       success: false,

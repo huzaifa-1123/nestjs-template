@@ -1,6 +1,6 @@
 {
   "singleQuote": true,
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "tabWidth": 2,
   "semi": true,
   "printWidth": 120,
@@ -9,5 +9,6 @@
   "arrowParens": "always",
   "quoteProps": "as-needed",
   "requirePragma": false,
-  "insertPragma": false
+  "insertPragma": false,
+  "endOfLine": "auto"
 }

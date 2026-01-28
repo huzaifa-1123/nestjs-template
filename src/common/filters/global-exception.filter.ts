@@ -1,6 +1,15 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus, Inject, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+  Inject,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { Response, Request } from 'express';
-import { IResponse } from '../utils/Response';
+import { IResponse } from '../helpers/response.service';
 import { Logger } from 'pino-nestjs';
 
 @Catch()
@@ -16,7 +25,9 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     let message = 'Internal server error';
     let data: any = null;
 
-    const isBasicError= [HttpException,NotFoundException,BadRequestException].some((errType)=>exception instanceof errType)
+    const isBasicError = [HttpException, NotFoundException, BadRequestException].some(
+      (errType) => exception instanceof errType,
+    );
 
     if (isBasicError) {
       status = (exception as any)?.getStatus() || 500;
@@ -24,12 +35,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
       } else if (typeof exceptionResponse === 'object') {
-        const exceptionResponseObject=(exceptionResponse as any)
-        message = exceptionResponseObject?.message || exceptionResponseObject?.data?.message
+        const exceptionResponseObject = exceptionResponse as any;
+        message = exceptionResponseObject?.message || exceptionResponseObject?.data?.message;
       }
     } else if (exception instanceof Error) {
       message = exception.message;
-      this.logger.error(exception,(exception as any).stack,"GlobalException");
+      this.logger.error(exception, (exception as any).stack, 'GlobalException');
     }
 
     // Log the error with proper JSON format
