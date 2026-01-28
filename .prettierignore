@@ -1,0 +1,50 @@
+# Compiled output
+/dist
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+#ignore Husky and ESLint and Prettier
+.husky/
+.prettierrc
+.prettierignore
+.eslintrc.js
+.prettierrc
+
+# Environment files
+.env*
+
+# Tests
+/coverage
+/.nyc_output
+
+
+# OS-specific files
+.DS_Store
+package-lock.json
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# GitHub files and workflows
+.github/
+.github/**/*
