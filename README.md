@@ -65,3 +65,5 @@ npm run start:prod
 - `npm run test`: Run tests
 
 ## Onboard Doc
+
+- [Onboard Doc](./doc/onboard.md)
