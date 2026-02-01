@@ -9,7 +9,7 @@ export interface IResponse<T, K> {
 }
 
 @Injectable()
-export class Response {
+export class ResponseService {
   successResponse<T, K>(
     data: T | null = null,
     meta: K | null = null,

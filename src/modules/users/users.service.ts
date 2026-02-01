@@ -1,13 +1,13 @@
 import { Injectable, HttpStatus } from '@nestjs/common';
-import { UserRepository } from '../../src/repository/user.repository';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
-import { Response } from '../../src/common/helpers/response.service';
+import { ResponseService } from 'src/common/helpers/response.service';
+import { UserRepository } from 'src/repository/user.repository';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly response: Response,
+    private readonly response: ResponseService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
