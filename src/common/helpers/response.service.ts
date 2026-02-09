@@ -16,6 +16,16 @@ export class ResponseService {
     msg: string = 'Request successful',
     code: number = HttpStatus.OK,
   ): IResponse<T, K> {
+    if (typeof data === 'string') {
+      return {
+        success: true,
+        statusCode: code,
+        data: null,
+        meta,
+        message: data,
+      };
+    }
+
     return {
       success: true,
       statusCode: code,
@@ -30,6 +40,16 @@ export class ResponseService {
     msg: string = 'Request Failed',
     code: number = HttpStatus.BAD_REQUEST,
   ): IResponse<T, K> {
+    if (typeof data === 'string') {
+      return {
+        success: false,
+        statusCode: code,
+        data: null,
+        meta,
+        message: data,
+      };
+    }
+
     return {
       success: false,
       statusCode: code,

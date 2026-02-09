@@ -2,7 +2,7 @@ import { Global, Module, OnModuleDestroy, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
-import * as schema from './schema'; // Import schema
+import * as schema from './models'; // Import schema
 import { DATABASE_CONNECTION } from '../common/config/constant';
 import { InfoLog, ErrorLog } from '../common/helpers/logger.utils';
 

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package example;
+
+import "common.proto";
+
+service ExampleService {
+  rpc GetExample(GetExampleRequest) returns (GetExampleResponse);
+  rpc CreateExample(CreateExampleRequest) returns (CreateExampleResponse);
+}
+
+message GetExampleRequest {
+  string id = 1;
+}
+
+message GetExampleResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string createdAt = 4;
+}
+
+message CreateExampleRequest {
+  string name = 1;
+  string description = 2;
+}
+
+message CreateExampleResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string createdAt = 4;
+}

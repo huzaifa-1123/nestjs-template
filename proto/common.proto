@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package common;
+
+enum UserPermission {
+  ADMIN = 0;
+  USER = 1;
+  MODERATOR = 2;
+  GUEST = 3;
+}
+
+message User {
+  string uuid = 1;
+  string email = 2;
+  UserPermission userPermission = 3;
+}

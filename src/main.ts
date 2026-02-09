@@ -5,6 +5,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 // import fs from 'fs';
 import { Response } from 'express';
 import { Logger } from 'pino-nestjs';
@@ -12,7 +14,9 @@ import { HttpPortLog } from './common/helpers/logger.utils';
 import { httpLoggerMiddleware } from './common/middleware/httpLogger.middleware';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { traceIdMiddleware } from './common/middleware/traceId.middleware';
+
 const port = process.env.PORT || 3000;
+const grpcPort = process.env.GRPC_PORT || 5000;
 
 async function bootstrap() {
   const NestFactoryOptions: any = {
@@ -55,11 +59,25 @@ async function bootstrap() {
   //handle browser cros..
   app.enableCors();
 
-  //health check route
-  app.use('/api/_status', (req: Request, res: Response) => {
-    res.status(200).json('The service is up and running successfully');
+  // Configure gRPC microservice
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.GRPC,
+    options: {
+      package: ['example', 'common'],
+      protoPath: [
+        join(__dirname, '../proto/example.proto'),
+        join(__dirname, '../proto/common.proto'),
+      ],
+      url: `0.0.0.0:${grpcPort}`,
+    },
   });
+
   try {
+    // Start all microservices
+    await app.startAllMicroservices();
+    logger.info(`gRPC server is running on port ${grpcPort}`);
+    
+    // Start HTTP server
     await app.listen(port, () => HttpPortLog(port, logger));
   } catch (error) {
     logger.error(error);
